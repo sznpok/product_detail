@@ -4,7 +4,7 @@ import '../model/product_model.dart';
 
 class ProductRepo {
   String url =
-      " https://oriflamenepal.com/api/product/for-public/smart-sync-lipstick-233";
+      "https://oriflamenepal.com/api/product/for-public/smart-sync-lipstick-233";
 
   Dio dio = Dio();
 

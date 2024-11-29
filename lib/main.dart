@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'module/view/product_detail_view.dart';
-import 'module/view/product_list_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Product Detail',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const ProductListView(),
-    );
+        title: 'Product Detail',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const ProductDetailView());
   }
 }
