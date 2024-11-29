@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:product_detail_app/module/view/cart_view.dart';
 
 import '../bloc/product_detail_bloc.dart';
+import 'cart_view.dart';
 
 class ProductDetailView extends StatelessWidget {
   const ProductDetailView({super.key});
@@ -26,17 +26,6 @@ class ProductDetailView extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: const Text('Product Detail'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CartView()));
-              },
-              icon: const Icon(
-                Icons.add_shopping_cart,
-              ),
-            )
-          ],
         ),
         body: BlocBuilder<ProductDetailBloc, ProductDetailState>(
           builder: (context, state) {
@@ -44,9 +33,6 @@ class ProductDetailView extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             }
             final product = state.productData?.product;
-            /*final color = getColor(
-                product!.colorVariants![0].color!.colorValue!.first.toString());*/
-            //print(color);
             return SingleChildScrollView(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -89,16 +75,36 @@ class ProductDetailView extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 10),
-                  // Product Name
-                  Text(
-                    product?.title ?? 'N/A',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black.withOpacity(0.6),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        product?.title ?? 'N/A',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black.withOpacity(0.6),
+                            ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CartView(
+                                product: state.product,
+                                quantity: state.quantity,
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.add_shopping_cart,
                         ),
+                      )
+                    ],
                   ),
                   const SizedBox(height: 5),
                   Text(
@@ -311,7 +317,25 @@ class ProductDetailView extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.read<ProductDetailBloc>().add(
+                                AddToCartEvent(
+                                  product: product!,
+                                ),
+                              );
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                              "Product Added to Cart",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: Colors.white,
+                                  ),
+                            ),
+                            backgroundColor: Colors.green,
+                          ));
+                        },
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.black,
                           shape: RoundedRectangleBorder(
@@ -335,7 +359,6 @@ class ProductDetailView extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 10),
-
                   Theme(
                     data: Theme.of(context).copyWith(
                       dividerColor: Colors.transparent,
