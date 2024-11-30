@@ -23,6 +23,17 @@ class ProductDetailView extends StatelessWidget {
       create: (context) => ProductDetailBloc()..add(FetchProductEvent()),
       child: Scaffold(
         backgroundColor: Colors.white,
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            /*Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SendMessageView(),
+              ),
+            );*/
+          },
+          label: const Text('Send Message'),
+        ),
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: const Text('Product Detail'),

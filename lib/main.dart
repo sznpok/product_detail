@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:product_detail_app/services/init.dart';
 
 import 'module/view/product_detail_view.dart';
 
-void main() {
+void main() async {
+  //call app init service
+  await AppInitService().init();
   runApp(const MyApp());
 }
 
