@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../../services/notifcation_services.dart';
 import '../bloc/product_detail_bloc.dart';
 import 'cart_view.dart';
 
@@ -24,13 +25,8 @@ class ProductDetailView extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            /*Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SendMessageView(),
-              ),
-            );*/
+          onPressed: () async {
+            NotificationServices.showNotification();
           },
           label: const Text('Send Message'),
         ),

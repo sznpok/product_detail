@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:product_detail_app/services/init.dart';
+import 'package:product_detail_app/services/notifcation_services.dart';
 
 import 'module/view/product_detail_view.dart';
 
-void main() async {
-  //call app init service
-  await AppInitService().init();
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  NotificationServices.initialize();
+
   runApp(const MyApp());
 }
 
